@@ -1,0 +1,43 @@
+@import "transitions";
+
+html, body {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+html, body {
+  margin: 0;
+  font-size: 15px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-y: scroll;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: #333333;
+  font-size: 15px;
+  font-variant: tabular-nums;
+  line-height: 14px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+
+  &.using-keyboard :focus {
+    outline: 2px solid #199DE6;
+  }
+}
+
+// inputs and buttons
+* {
+  font-family: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  font-variant: inherit;
+}

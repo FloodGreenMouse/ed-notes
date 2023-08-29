@@ -1,0 +1,69 @@
+<template lang="pug">
+  .note-component(@mouseleave="showButtonGroup = false")
+    .note-wrap(@mouseenter="showButtonGroup = true")
+      .note-title
+        span Title
+
+      .note-content
+        span Content
+
+    transition(name="fade" :duration="100")
+      .button-group(v-if="showButtonGroup")
+        button.button-delete Удалить
+</template>
+
+<script>
+export default {
+  name: 'vNote',
+  data () {
+    return {
+      showButtonGroup: false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .note-component {
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(#333333, 0.2) inset;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all ease 0.2s;
+
+    &:hover {
+      box-shadow: 0 0 0 1px rgba(#333333, 0.2) inset, 0 0 10px 10px rgba(#333333, 0.05);
+    }
+
+    .note-wrap {
+      cursor: pointer;
+    }
+
+    .note-title {
+      margin-bottom: 4px;
+    }
+
+    .button-group {
+      position: absolute;
+      width: 100%;
+      bottom: -35px;
+      left: 0;
+      text-align: right;
+      z-index: 1;
+
+      button {
+        border: none;
+        background-color: white;
+        cursor: pointer;
+        padding: 8px 12px;
+        border-radius: 4px;
+        transition: all ease 0.2s;
+        box-shadow: 0 0 0 1px rgba(#333333, 0.2) inset;
+
+        &:hover {
+          box-shadow: 0 0 0 1px rgba(#333333, 0.2) inset, 0 0 10px 10px rgba(#333333, 0.05);
+        }
+      }
+    }
+  }
+</style>
