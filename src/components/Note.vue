@@ -1,23 +1,40 @@
 <template lang="pug">
   .note-component(@mouseleave="showButtonGroup = false")
     .note-wrap(@mouseenter="showButtonGroup = true")
+      router-link(:to="`/${id}`")
+
       .note-title
-        span Title
+        span {{ note.title }}
 
       .note-content
-        span Content
+        span {{ note.content }}
 
     transition(name="fade" :duration="100")
       .button-group(v-if="showButtonGroup")
-        button.button-delete Удалить
+        button.button-delete(@click="deleteNote") Удалить
 </template>
 
 <script>
 export default {
   name: 'vNote',
+  props: {
+    id: {
+      type: Number,
+      default: null
+    },
+    note: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data () {
     return {
       showButtonGroup: false
+    }
+  },
+  methods: {
+    deleteNote () {
+      this.$store.dispatch('removeNote', this.id)
     }
   }
 }
@@ -36,7 +53,16 @@ export default {
     }
 
     .note-wrap {
+      position: relative;
       cursor: pointer;
+
+      a {
+        position: absolute;
+        left: -10px;
+        top: -10px;
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+      }
     }
 
     .note-title {

@@ -1,5 +1,5 @@
 <template lang="pug">
-  .note-form-component
+  .note-form-component(ref="form")
     .form-title
       input(
         v-model="form.title"
@@ -27,11 +27,34 @@ export default {
     }
   },
   methods: {
+    outsideClose (e) {
+      const el = this.$refs.form
+      if (!el) return
+
+      if (!el.contains(e.target)) {
+        this.showEditor = false
+      }
+    },
     submit () {
+      if (!this.form.title.trim() && !this.form.content.trim()) return
+
+      const data = {
+        title: this.form.title,
+        content: this.form.content
+      }
+
+      this.$store.dispatch('addNote', data)
+
       this.form.title = ''
       this.form.content = ''
       this.showEditor = false
     }
+  },
+  mounted () {
+    document.addEventListener('click', this.outsideClose)
+  },
+  beforeDestroy () {
+    document.removeEventListener('click', this.outsideClose)
   }
 }
 </script>
@@ -82,6 +105,7 @@ export default {
         cursor: pointer;
         padding: 8px 12px;
         border-radius: 4px;
+        border: 1px solid rgba(#333333, 0.2);
         transition: all ease 0.2s;
 
         &:hover {

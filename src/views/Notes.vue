@@ -2,13 +2,15 @@
   .page.notes
     .note-form
       NoteForm
+
     .notes-section
       .notes
-        .note(v-for="note in 10")
-          Note
+        .note(v-for="(note, i) in notes" :key="i")
+          Note(:note="note" :id="i")
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import NoteForm from '@/components/NoteForm.vue'
 import Note from '@/components/Note.vue'
 
@@ -17,6 +19,11 @@ export default {
   components: {
     NoteForm,
     Note
+  },
+  computed: {
+    ...mapState({
+      notes: state => state.notes
+    })
   }
 }
 </script>

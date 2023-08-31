@@ -5,13 +5,22 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-  },
-  getters: {
-  },
-  mutations: {
+    notes: []
   },
   actions: {
+    addNote ({ commit }, note) {
+      commit('ADD_NOTE', note)
+    },
+    removeNote ({ commit }, id) {
+      commit('REMOVE_NOTE', id)
+    }
   },
-  modules: {
+  mutations: {
+    ADD_NOTE (state, note) {
+      state.notes.push(note)
+    },
+    REMOVE_NOTE (state, id) {
+      state.notes.splice(id, 1)
+    }
   }
 })
